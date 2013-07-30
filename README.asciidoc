@@ -1,8 +1,8 @@
-fedup-dracut - initramfs environment for Fedora Upgrades
+rhelup-dracut - initramfs environment for RHEL Upgrades
 ========================================================
 Will Woods <wwoods@redhat.com>
 
-This is 'fedup-dracut', the initramfs environment for Fedora Upgrades.
+This is 'rhelup-dracut', the initramfs environment for RHEL Upgrades.
 
 Components
 ----------
@@ -20,16 +20,16 @@ This module provides a (distro-neutral) framework for running upgrades.
 * Saves those to `/run/initramfs/upgrade.conf` if both exist
 * 'BONUS:' adds upgrade-debug-shell.service
 
-`85system-upgrade-fedora/`
+`85system-upgrade-redhat/`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-This is the Fedora 'system-upgrade' implementation.
+This is the RHEL 'system-upgrade' implementation.
 
 * Includes upgrade tool, SELinux policy, plymouth, etc.
 * Copies initramfs to `$UPGRADEROOT`
-* Runs 'system-upgrade-fedora' binary in the `upgrade` hook
+* Runs 'system-upgrade-redhat' binary in the `upgrade` hook
 * Save log & journal to `/var/log/upgrade.{log,journal}` before reboot
 
-`system-upgrade-fedora.c`
+`system-upgrade-redhat.c`
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 The actual upgrade tool.
 
@@ -37,8 +37,8 @@ The actual upgrade tool.
 * Sends progress updates to `plymouthd`
 * Sends status output to console + journal
 
-The actual upgrade setup is handled in the main 'fedup' package, which can be
-found here: https://github.com/wgwoods/fedup
+The actual upgrade setup is handled in the main 'rhelup' package, which can be
+found here: https://github.com/dashea/rhelup
 
 Building
 --------
@@ -53,11 +53,11 @@ You'll want to build the initramfs on the _newer_ distro version.
 . Install dracut modules
     * `make install`, or
         .. `make archive`
-        .. `rpmbuild -ta fedup-dracut*.tar.xz`
+        .. `rpmbuild -ta rhelup-dracut*.tar.xz`
         .. +rpm -ivh '[freshly-built RPMs]'+
 . Build upgrade initramfs
     * `OLDTHEME=$(plymouth-set-default-theme)`
-    * `plymouth-set-default-theme fedup`
+    * `plymouth-set-default-theme rhelup`
     * `dracut --add system-upgrade upgrade.img`
     * `plymouth-set-default-theme $OLDTHEME`
 

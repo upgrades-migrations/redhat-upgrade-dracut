@@ -18,26 +18,26 @@ dracut_DATA = 90system-upgrade/README.txt \
 	      90system-upgrade/upgrade-post.service \
 	      90system-upgrade/upgrade-debug-shell.service
 
-fedora_DIR = $(DRACUTMODDIR)/85system-upgrade-fedora
-fedora_BIN = system-upgrade-fedora
-fedora_SCRIPTS = 85system-upgrade-fedora/module-setup.sh \
-		 85system-upgrade-fedora/keep-initramfs.sh \
-		 85system-upgrade-fedora/prepare-rootfs.sh \
-		 85system-upgrade-fedora/do-upgrade.sh \
-		 85system-upgrade-fedora/upgrade-cleanup.sh \
-		 85system-upgrade-fedora/save-journal.sh
+rhelup_DIR = $(DRACUTMODDIR)/85system-upgrade-redhat
+rhelup_BIN = system-upgrade-redhat
+rhelup_SCRIPTS = 85system-upgrade-redhat/module-setup.sh \
+		 85system-upgrade-redhat/keep-initramfs.sh \
+		 85system-upgrade-redhat/prepare-rootfs.sh \
+		 85system-upgrade-redhat/do-upgrade.sh \
+		 85system-upgrade-redhat/upgrade-cleanup.sh \
+		 85system-upgrade-redhat/save-journal.sh
 
-THEMENAME=fedup
+THEMENAME=rhelup
 THEMESDIR=$(shell pkg-config ply-splash-graphics --variable=themesdir)
 plymouth_DIR = $(THEMESDIR)$(THEMENAME)
 plymouth_DATA = plymouth/*.png
-plymouth_THEME = plymouth/fedup.plymouth
+plymouth_THEME = plymouth/rhelup.plymouth
 
-GENFILES = 85system-upgrade-fedora/module-setup.sh
+GENFILES = 85system-upgrade-redhat/module-setup.sh
 
-SCRIPTS = $(dracut_SCRIPTS) $(fedora_SCRIPTS)
+SCRIPTS = $(dracut_SCRIPTS) $(rhelup_SCRIPTS)
 DATA = $(dracut_DATA) $(plymouth_DATA) $(plymouth_THEME)
-BIN = $(fedora_BIN)
+BIN = $(rhelup_BIN)
 
 all: $(SCRIPTS) $(DATA) $(BIN)
 
@@ -60,17 +60,17 @@ install: $(BIN) $(SCRIPTS) $(DATA)
 	$(INSTALL) -d $(DESTDIR)$(dracut_DIR)
 	$(INSTALL) $(dracut_SCRIPTS) $(DESTDIR)$(dracut_DIR)
 	$(INSTALL) -m644 $(dracut_DATA) $(DESTDIR)$(dracut_DIR)
-	$(INSTALL) -d $(DESTDIR)$(fedora_DIR)
-	$(INSTALL) $(fedora_SCRIPTS) $(DESTDIR)$(fedora_DIR)
+	$(INSTALL) -d $(DESTDIR)$(rhelup_DIR)
+	$(INSTALL) $(rhelup_SCRIPTS) $(DESTDIR)$(rhelup_DIR)
 	$(INSTALL) -d $(DESTDIR)$(plymouth_DIR)
 	$(INSTALL) -m644 $(plymouth_DATA) $(DESTDIR)$(plymouth_DIR)
 	$(INSTALL) -m644 $(plymouth_THEME) \
 			 $(DESTDIR)$(plymouth_DIR)/$(THEMENAME).plymouth
 
-ARCHIVE = fedup-dracut-$(VERSION).tar.xz
+ARCHIVE = rhelup-dracut-$(VERSION).tar.xz
 archive: $(ARCHIVE)
 $(ARCHIVE):
-	git archive --format=tar --prefix=fedup-dracut-$(VERSION)/ HEAD \
+	git archive --format=tar --prefix=rhelup-dracut-$(VERSION)/ HEAD \
 	  | xz -c > $@ || rm $@
 
 .PHONY: all clean archive install

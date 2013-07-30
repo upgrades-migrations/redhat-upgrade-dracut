@@ -1,4 +1,4 @@
-/* system-upgrade-fedora.c: upgrade a Fedora system
+/* system-upgrade-redhat.c: upgrade a RHEL system
  *
  * Copyright © 2012 Red Hat Inc.
  *
@@ -28,7 +28,7 @@
 #include <rpm/rpmcli.h>     /* rpmShowProgress */
 
 /* i18n */
-#define GETTEXT_PACKAGE "fedup"
+#define GETTEXT_PACKAGE "rhelup"
 #include <locale.h>
 #include <glib/gi18n.h>
 
@@ -593,7 +593,7 @@ int main(int argc, char* argv[]) {
 
 
     /* parse commandline */
-    context = g_option_context_new("upgrade a Fedora system");
+    context = g_option_context_new("upgrade a RHEL system");
     g_option_context_add_main_entries(context, options, GETTEXT_PACKAGE);
     if (!g_option_context_parse(context, &argc, &argv, &error))
         g_critical("option_parsing failed: %s", error->message);

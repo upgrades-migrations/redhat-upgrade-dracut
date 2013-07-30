@@ -1,6 +1,6 @@
 #!/bin/bash
 
-UPGRADEBIN=@LIBEXECDIR@/system-upgrade-fedora
+UPGRADEBIN=@LIBEXECDIR@/system-upgrade-redhat
 
 check() {
     [ -x $UPGRADEBIN ] || return 1
@@ -32,7 +32,7 @@ install() {
     inst_binary $UPGRADEBIN
     # config file so we can find it
     mkdir -p "${initdir}/etc/conf.d"
-    echo "UPGRADEBIN=$UPGRADEBIN" > "${initdir}/etc/conf.d/fedup.conf"
+    echo "UPGRADEBIN=$UPGRADEBIN" > "${initdir}/etc/conf.d/rhelup.conf"
 
     # RPM hash/sig checks (via NSS) don't work without these
     inst_libdir_file "libfreebl*" "libsqlite*" "libsoftokn*"

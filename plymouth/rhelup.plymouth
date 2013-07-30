@@ -1,10 +1,10 @@
 [Plymouth Theme]
-Name=Fedup
+Name=RHELup
 Description=A pulsing progress bar intended for use during system upgrades.
 ModuleName=two-step
 
 [two-step]
-ImageDir=/usr/share/plymouth/themes/fedup
+ImageDir=/usr/share/plymouth/themes/rhelup
 HorizontalAlignment=.5
 VerticalAlignment=.5
 Transition=none
