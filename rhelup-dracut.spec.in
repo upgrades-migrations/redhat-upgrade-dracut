@@ -58,5 +58,6 @@ make install DESTDIR=$RPM_BUILD_ROOT \
 
 
 %changelog
-* Tue Jul 30 2013 David Shea <dshea@redhat.com> 0.7.3-0
-- Repackaged as rhelup-dracut
+* Wed Oct 23 2013 David Shea <dshea@redhat.com> - 0.8.0-0
+- Initial rhelup-dracut package for RHEL 7.0
+  Resolves: rhbz#1012667
