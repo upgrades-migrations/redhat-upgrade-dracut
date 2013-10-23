@@ -1,0 +1,8 @@
+#!/bin/sh
+
+[ -d "$2" ] || exit 1
+
+system_upgrade=$(readlink /sysroot/system-upgrade)
+if [ -L /sysroot/system-upgrade -a -d /sysroot/$system_upgrade ]; then
+    ln -sf /etc/systemd/system/upgrade.target "$2/default.target"
+fi

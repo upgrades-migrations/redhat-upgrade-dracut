@@ -21,9 +21,9 @@ depends() {
 }
 
 install() {
-    # Set UPGRADE, UPGRADEROOT, UPGRADELINK
+    # Set UPGRADE env variable
     inst_hook cmdline 01 "$moddir/upgrade-init.sh"
-    # Save UPGRADEROOT, UPGRADELINK for running system
+    # Save copy of $NEWROOT/system-upgrade to /run
     inst_hook pre-pivot 99 "$moddir/upgrade-pre-pivot.sh"
 
     # NOTE: 98systemd copies units from here to /run/systemd/system so systemd
@@ -42,10 +42,17 @@ install() {
         ln -sf "../$s.service" $upgrade_wantsdir
     done
 
-    # debug shell service
-    basic_wantsdir="${initdir}${unitdir}/basic.target.wants"
-    mkdir -p "$basic_wantsdir"
-    inst_simple "$moddir/upgrade-debug-shell.service" "$unitdir/upgrade-debug-shell.service"
-    ln -sf "../upgrade-debug-shell.service" $basic_wantsdir
+    # generator to switch to upgrade.target when we return to initrd
+    generatordir="/usr/lib/systemd/system-generators"
+    mkdir -p "${initdir}${generatordir}"
+    inst_script "$moddir/initrd-system-upgrade-generator" \
+                "$generatordir/initrd-system-upgrade-generator"
+
+    # upgrade shell service
+    sysinit_wantsdir="${initdir}${unitdir}/sysinit.target.wants"
+    mkdir -p $sysinit_wantsdir
+    inst_simple "$moddir/system-upgrade-shell.service" \
+                "$unitdir/system-upgrade-shell.service"
+    ln -sf "../system-upgrade-shell.service" $sysinit_wantsdir
 }
 
