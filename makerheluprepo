@@ -72,8 +72,10 @@ cp -f $kernel "$repodir/$KERNELPATH" || \
 
 # build upgrade.img
 echo "* building $UPGRADEPATH (this will take a moment..)"
-dracut --no-hostonly --force --add "system-upgrade convertfs" \
-    "$repodir/$UPGRADEPATH" $kver || \
+dracut --conf /dev/null --confdir $repodir \
+       --no-hostonly --nolvmconf --nomdadmconf \
+       --add "system-upgrade plymouth-label convertfs" \
+       --xz --force "$repodir/$UPGRADEPATH" "$kver" || \
     die "dracut failed to build upgrade.img."
 
 # write .treeinfo
@@ -105,6 +107,18 @@ else
 fi
 
 chmod -R a+r $repodir
+
+cat > $repodir/serve << '__EOT__'
+#!/bin/bash
+echo "This repo will be reachable at:"
+echo
+for ip in $(ip addr | sed -rn 's| *inet ([0-9.]+)/.*|\1|p'); do
+    echo "    http://$ip:${1:-8000}/"
+done
+echo
+python -m SimpleHTTPServer $1
+__EOT__
+chmod 0755 $repodir/serve
 
 echo "done."
 

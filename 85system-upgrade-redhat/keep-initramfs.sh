@@ -2,9 +2,8 @@
 
 die() { warn "$*"; exit 1; }
 
-upgradedir="${NEWROOT}${UPGRADEROOT}"
+upgradedir="${NEWROOT}/system-upgrade-root"
 
-[ -n "$UPGRADEROOT" ] || die "UPGRADEROOT is unset, can't save initramfs"
 [ -d "$upgradedir" ] || die "'$upgradedir' doesn't exist"
 
 echo "saving initramfs to $upgradedir"
@@ -13,6 +12,11 @@ mount -t tmpfs -o mode=755 tmpfs "$upgradedir" \
     || die "Can't mount tmpfs for $upgradedir"
 
 cp -ax / "$upgradedir" || die "failed to save initramfs to $upgradedir"
+
+# switch off initrd mode
+rm -f "$upgradedir/etc/initrd-release"
+# make sure we have os-release
+ln -sf "system-upgrade-release" "$upgradedir/etc/os-release"
 
 create_newroot_dir() {
     local newdir="$1"
