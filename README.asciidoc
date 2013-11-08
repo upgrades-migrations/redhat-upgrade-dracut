@@ -1,8 +1,8 @@
-rhelup-dracut - initramfs environment for RHEL Upgrades
+redhat-upgrade-dracut - initramfs environment for RHEL Upgrades
 ========================================================
 Will Woods <wwoods@redhat.com>
 
-This is 'rhelup-dracut', the initramfs environment for RHEL Upgrades.
+This is 'redhat-upgrade-dracut', the initramfs environment for RHEL Upgrades.
 
 Components
 ----------
@@ -35,8 +35,8 @@ The actual upgrade tool.
 * Sends progress updates to `plymouthd`
 * Sends status output to console + journal
 
-The actual upgrade setup is handled in the main 'rhelup' package, which can be
-found here: https://github.com/dashea/rhelup
+The actual upgrade setup is handled in the main 'redhat-upgrade-tool' package, which can be
+found here: https://github.com/dashea/redhat-upgrade-tool
 
 Building
 --------
@@ -51,11 +51,11 @@ You'll want to build the initramfs on the _newer_ distro version.
 . Install dracut modules
     * `make install`, or
         .. `make archive`
-        .. `rpmbuild -ta rhelup-dracut*.tar.xz`
+        .. `rpmbuild -ta redhat-upgrade-dracut*.tar.xz`
         .. +rpm -ivh '[freshly-built RPMs]'+
 . Build upgrade initramfs
     * `OLDTHEME=$(plymouth-set-default-theme)`
-    * `plymouth-set-default-theme rhelup`
+    * `plymouth-set-default-theme redhat-upgrade-tool`
     * `dracut --add system-upgrade upgrade.img`
     * `plymouth-set-default-theme $OLDTHEME`
 

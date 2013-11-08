@@ -1,14 +1,14 @@
 %global dracutmoddir %{_prefix}/lib/dracut/modules.d
 %global plymouthver 0.8.6
 
-Name:       rhelup-dracut
+Name:       redhat-upgrade-dracut
 Version:    @VERSION@
-Release:    0%{?dist}
+Release:    1%{?dist}
 Summary:    The Red Hat Enterprise Linux Upgrade tool initramfs environment
 
 License:    GPLv2+
-URL:        https://github.com/dashea/rhelup-dracut
-Source0:    https://github.com/downloads/dashea/rhelup-dracut/%{name}-%{version}.tar.xz
+URL:        https://github.com/dashea/redhat-upgrade-dracut
+Source0:    https://github.com/downloads/dashea/redhat-upgrade-dracut/%{name}-%{version}.tar.xz
 
 Summary:        initramfs environment for system upgrades
 BuildRequires:  rpm-devel >= 4.10.0
@@ -48,16 +48,20 @@ make install DESTDIR=$RPM_BUILD_ROOT \
              DRACUTMODDIR=%{dracutmoddir}
 
 %files
-%doc README.asciidoc TODO.asciidoc COPYING makerheluprepo
+%doc README.asciidoc TODO.asciidoc COPYING make-redhat-upgrade-repo
 %{_libexecdir}/system-upgrade-redhat
 %{dracutmoddir}/85system-upgrade-redhat
 %{dracutmoddir}/90system-upgrade
 
 %files plymouth
-%{_datadir}/plymouth/themes/rhelup
+%{_datadir}/plymouth/themes/redhat-upgrade-tool
 
 
 %changelog
+* Fri Nov  8 2013 David Shea <dshea@redhat.com> - 0.8.0-1
+- Rename to redhat-upgrade-dracut
+  Resolves: rhbz#1027492
+
 * Wed Oct 23 2013 David Shea <dshea@redhat.com> - 0.8.0-0
 - Initial rhelup-dracut package for RHEL 7.0
   Resolves: rhbz#1012667

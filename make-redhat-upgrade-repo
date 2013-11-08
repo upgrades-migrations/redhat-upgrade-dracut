@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# makerheluprepo - quick script to make a rhelup-usable instrepo for testing
+# make-redhat-upgrade-repo - quick script to make a redhat-upgrade-tool usable
+# instrepo for testing
 #
 # Copyright (C) 2012 Red Hat Inc.
 #
@@ -22,7 +23,7 @@
 
 # constants and helper functions!
 # -------------------------------
-export PLYMOUTH_THEME_NAME=rhelup
+export PLYMOUTH_THEME_NAME=redhat-upgrade-tool
 KERNELPATH=vmlinuz
 UPGRADEPATH=upgrade.img
 die() { echo $(basename $0): error: $@ >&2; exit 1; }
@@ -34,7 +35,7 @@ sha256() { set -- $(sha256sum $1); echo "sha256:$1"; }
 repodir="$1"
 kver="${2:-$(uname -r)}"
 
-[ -z "$1" ] && echo "usage: makerheluprepo REPODIR [KERNELVER]" && exit 1
+[ -z "$1" ] && echo "usage: make-redhat-upgrade-repo REPODIR [KERNELVER]" && exit 1
 [ -d "$repodir" ] || die "directory $repodir doesn't exist. create it first."
 [ -f $repodir/repodata/repomd.xml ] || createrepo=1
 
@@ -49,7 +50,7 @@ kernel="/boot/vmlinuz-$kver" # NOTE: distro-specific
 
 command -v dracut >/dev/null || die "can't find dracut"
 dracut --list-modules 2>/dev/null | grep -q system-upgrade || \
-    die "dracut can't find system-upgrade module. install rhelup-dracut."
+    die "dracut can't find system-upgrade module. install redhat-upgrade-dracut."
 
 if [ $createrepo ]; then
     command -v createrepo >/dev/null || die "can't find createrepo"
@@ -60,7 +61,7 @@ fi
 # ---------------------
 [ $(id -u) = 0 ] || die "be root."
 # make leading dirs
-echo "creating rhelup-capable repo at $repodir"
+echo "creating redhat-upgrade-tool-capable repo at $repodir"
 mkdir -p "$repodir/$(dirname $KERNELPATH)" \
          "$repodir/$(dirname $UPGRADEPATH)" || \
     die "failed to make required directories."
@@ -83,7 +84,7 @@ echo "* writing .treeinfo"
 arch=$(uname -m)
 cat > $repodir/.treeinfo << __EOT__ || die "couldn't write .treeinfo"
 [general]
-family = rhelup
+family = redhat-upgrade-tool
 timestamp = $(date '+%s')
 arch = $arch
 version = ${VERSION_ID:-0}

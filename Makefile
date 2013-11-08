@@ -19,26 +19,26 @@ dracut_DATA = 90system-upgrade/README.txt \
 	      90system-upgrade/upgrade-post.service \
 	      90system-upgrade/system-upgrade-shell.service
 
-rhelup_DIR = $(DRACUTMODDIR)/85system-upgrade-redhat
-rhelup_BIN = system-upgrade-redhat
-rhelup_SCRIPTS = 85system-upgrade-redhat/module-setup.sh \
+upgrade_DIR = $(DRACUTMODDIR)/85system-upgrade-redhat
+upgrade_BIN = system-upgrade-redhat
+upgrade_SCRIPTS = 85system-upgrade-redhat/module-setup.sh \
 		 85system-upgrade-redhat/keep-initramfs.sh \
 		 85system-upgrade-redhat/prepare-rootfs.sh \
 		 85system-upgrade-redhat/do-upgrade.sh \
 		 85system-upgrade-redhat/upgrade-cleanup.sh \
 		 85system-upgrade-redhat/save-journal.sh
 
-THEMENAME=rhelup
+THEMENAME=redhat-upgrade-tool
 THEMESDIR=$(shell pkg-config ply-splash-graphics --variable=themesdir)
 plymouth_DIR = $(THEMESDIR)$(THEMENAME)
 plymouth_DATA = plymouth/*.png
-plymouth_THEME = plymouth/rhelup.plymouth
+plymouth_THEME = plymouth/redhat-upgrade-tool.plymouth
 
-GENFILES = 85system-upgrade-redhat/module-setup.sh rhelup-dracut.spec
+GENFILES = 85system-upgrade-redhat/module-setup.sh redhat-upgrade-dracut.spec
 
-SCRIPTS = $(dracut_SCRIPTS) $(rhelup_SCRIPTS)
+SCRIPTS = $(dracut_SCRIPTS) $(upgrade_SCRIPTS)
 DATA = $(dracut_DATA) $(plymouth_DATA) $(plymouth_THEME)
-BIN = $(rhelup_BIN)
+BIN = $(upgrade_BIN)
 
 all: $(SCRIPTS) $(DATA) $(BIN)
 
@@ -62,22 +62,22 @@ install: $(BIN) $(SCRIPTS) $(DATA)
 	$(INSTALL) -d $(DESTDIR)$(dracut_DIR)
 	$(INSTALL) $(dracut_SCRIPTS) $(DESTDIR)$(dracut_DIR)
 	$(INSTALL) -m644 $(dracut_DATA) $(DESTDIR)$(dracut_DIR)
-	$(INSTALL) -d $(DESTDIR)$(rhelup_DIR)
-	$(INSTALL) $(rhelup_SCRIPTS) $(DESTDIR)$(rhelup_DIR)
+	$(INSTALL) -d $(DESTDIR)$(upgrade_DIR)
+	$(INSTALL) $(upgrade_SCRIPTS) $(DESTDIR)$(upgrade_DIR)
 	$(INSTALL) -d $(DESTDIR)$(plymouth_DIR)
 	$(INSTALL) -m644 $(plymouth_DATA) $(DESTDIR)$(plymouth_DIR)
 	$(INSTALL) -m644 $(plymouth_THEME) \
 			 $(DESTDIR)$(plymouth_DIR)/$(THEMENAME).plymouth
 
-ARCHIVE = rhelup-dracut-$(VERSION).tar.xz
+ARCHIVE = redhat-upgrade-dracut-$(VERSION).tar.xz
 archive: $(ARCHIVE)
 $(ARCHIVE):
-	git archive --format=tar --prefix=rhelup-dracut-$(VERSION)/ HEAD \
+	git archive --format=tar --prefix=redhat-upgrade-dracut-$(VERSION)/ HEAD \
 	  | xz -c > $@ || rm $@
 
-rpm: $(ARCHIVE) fedup-dracut.spec
+rpm: $(ARCHIVE) redhat-upgrade-dracut.spec
 	mkdir -p rpm/build
-	rpmbuild -ba fedup-dracut.spec \
+	rpmbuild -ba redhat-upgrade-dracut.spec \
 		 --define '_specdir $(PWD)' \
 		 --define '_sourcedir $(PWD)' \
 		 --define '_specdir $(PWD)' \
@@ -85,9 +85,9 @@ rpm: $(ARCHIVE) fedup-dracut.spec
 		 --define '_rpmdir $(PWD)/rpm' \
 		 --define '_builddir $(PWD)/rpm/build'
 
-repo: makefeduprepo
+repo: make-redhat-upgrade-repo
 	mkdir repo
-	./makefeduprepo repo || rm -rf repo
+	./make-redhat-upgrade-repo repo || rm -rf repo
 
 upgrade.img:
 	PLYMOUTH_THEME_NAME=$(THEMENAME) \

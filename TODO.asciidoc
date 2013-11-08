@@ -6,7 +6,7 @@ Docs::
   * document boot args (rd.upgrade.*)
 
 Improve progress reporting::
-  * change /etc/*-release so "Welcome to XXX" message says "Welcome to rhelup"
+  * change /etc/*-release so "Welcome to XXX" message says "Welcome to redhat-upgrade-tool"
   * count %posttrans scripts, take %posttrans into account for upgrade progress
   ** although actually posttrans is only like 1.3% of elapsed time...
   * warn user about long-running %post scripts

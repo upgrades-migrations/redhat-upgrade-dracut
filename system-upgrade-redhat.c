@@ -28,7 +28,7 @@
 #include <rpm/rpmcli.h>     /* rpmShowProgress */
 
 /* i18n */
-#define GETTEXT_PACKAGE "rhelup"
+#define GETTEXT_PACKAGE "redhat-upgrade-tool"
 #include <locale.h>
 #include <glib/gi18n.h>
 

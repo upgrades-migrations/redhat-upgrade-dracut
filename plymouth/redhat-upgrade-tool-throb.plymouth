@@ -1,10 +1,10 @@
 [Plymouth Theme]
-Name=RHELup
+Name=Red Hat Upgrade Tool
 Description=A pulsing progress bar intended for use during system upgrades.
 ModuleName=throbgress
 
 [throbgress]
-ImageDir=/usr/share/plymouth/themes/rhelup
+ImageDir=/usr/share/plymouth/themes/redhat-upgrade-tool
 HorizontalAlignment=.5
 VerticalAlignment=.75
 Transition=none

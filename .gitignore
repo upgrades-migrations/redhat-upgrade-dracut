@@ -1,4 +1,4 @@
 *.swp
-system-upgrade-fedora
-85system-upgrade-fedora/module-setup.sh
-fedup-dracut*.tar.xz
+system-upgrade-redhat
+85system-upgrade-redhat/module-setup.sh
+redhat-upgrade-dracut*.tar.xz
