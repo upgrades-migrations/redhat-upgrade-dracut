@@ -58,6 +58,10 @@ make install DESTDIR=$RPM_BUILD_ROOT \
 
 
 %changelog
+* Tue Dec 10 2013 David Shea <dshea@redhat.com> - 0.8.1-1
+- Remove beefy miracle from the log
+  Resolves: rhbz#1031956
+
 * Fri Nov  8 2013 David Shea <dshea@redhat.com> - 0.8.0-1
 - Rename to redhat-upgrade-dracut
   Resolves: rhbz#1027492
