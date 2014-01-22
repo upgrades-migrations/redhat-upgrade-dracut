@@ -8,7 +8,7 @@ Summary:    The Red Hat Enterprise Linux Upgrade tool initramfs environment
 
 License:    GPLv2+
 URL:        https://github.com/dashea/redhat-upgrade-dracut
-Source0:    https://github.com/downloads/dashea/redhat-upgrade-dracut/%{name}-%{version}.tar.xz
+Source0:    %{name}-%{version}.tar.xz
 
 Summary:        initramfs environment for system upgrades
 BuildRequires:  rpm-devel >= 4.10.0
