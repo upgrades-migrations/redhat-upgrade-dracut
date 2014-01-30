@@ -58,6 +58,10 @@ make install DESTDIR=$RPM_BUILD_ROOT \
 
 
 %changelog
+* Thu Jan 30 2014 David Shea <dshea@redhat.com> - 0.8.3-1
+- Add support for the postupgrade scripts created by preupgr
+  Resolves: rhbz#bz1054262
+
 * Thu Jan 23 2014 David Shea <dshea@redhat.com> - 0.8.2-1
 - Remove the URL from the Source0 line.
   Resolves: rhbz#1056731
