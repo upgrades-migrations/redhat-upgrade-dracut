@@ -58,13 +58,23 @@ make install DESTDIR=$RPM_BUILD_ROOT \
 
 
 %changelog
+* Thu Jan 30 2014 David Shea <dshea@redhat.com> - 0.8.3-2
+- Restored changelog entries
+  Related: rhbz#1054262
+
 * Thu Jan 30 2014 David Shea <dshea@redhat.com> - 0.8.3-1
 - Add support for the postupgrade scripts created by preupgr
   Resolves: rhbz#bz1054262
 
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.8.2-2
+- Mass rebuild 2014-01-24
+
 * Thu Jan 23 2014 David Shea <dshea@redhat.com> - 0.8.2-1
 - Remove the URL from the Source0 line.
   Resolves: rhbz#1056731
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.8.1-2
+- Mass rebuild 2013-12-27
 
 * Tue Dec 10 2013 David Shea <dshea@redhat.com> - 0.8.1-1
 - Remove beefy miracle from the log
