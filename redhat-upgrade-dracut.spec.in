@@ -58,6 +58,9 @@ make install DESTDIR=$RPM_BUILD_ROOT \
 
 
 %changelog
+* Fri Jan 31 2014 David Shea <dshea@redhat.com> - 0.8.4-1
+- Resolves: rhbz#1054262
+
 * Thu Jan 30 2014 David Shea <dshea@redhat.com> - 0.8.3-2
 - Restored changelog entries
   Related: rhbz#1054262
