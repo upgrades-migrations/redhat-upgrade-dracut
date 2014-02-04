@@ -26,7 +26,8 @@ upgrade_SCRIPTS = 85system-upgrade-redhat/module-setup.sh \
 		 85system-upgrade-redhat/prepare-rootfs.sh \
 		 85system-upgrade-redhat/do-upgrade.sh \
 		 85system-upgrade-redhat/upgrade-cleanup.sh \
-		 85system-upgrade-redhat/save-journal.sh
+		 85system-upgrade-redhat/save-journal.sh \
+		 85system-upgrade-redhat/preupgrade-postupgrade.sh
 
 THEMENAME=redhat-upgrade-tool
 THEMESDIR=$(shell pkg-config ply-splash-graphics --variable=themesdir)
