@@ -58,6 +58,10 @@ make install DESTDIR=$RPM_BUILD_ROOT \
 
 
 %changelog
+* Tue Feb  4 2014 David Shea <dshea@redhat.com> - 0.8.5-1
+- Add the preupgrade-postupgrade script to the Makefile
+  Resolves: rhbz#1060843
+
 * Fri Jan 31 2014 David Shea <dshea@redhat.com> - 0.8.4-1
 - Sort the postupgrade scripts
   Resolves: rhbz#1054262
