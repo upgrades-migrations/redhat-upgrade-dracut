@@ -27,6 +27,9 @@ do_upgrade() {
     $UPGRADEBIN --root=/sysroot $args
     rv=$?
 
+    # install new product id certificates (override existing)
+    chroot $NEWROOT /bin/sh -c 'mv -f /system-upgrade/*.pem /etc/pki/product/'
+
     # restore things twiddled by workarounds above. TODO: remove!
     if [ -f /sys/fs/selinux/enforce ]; then
         echo $enforce > /sys/fs/selinux/enforce
