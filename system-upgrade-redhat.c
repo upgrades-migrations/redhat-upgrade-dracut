@@ -160,41 +160,10 @@ void plymouth_finish(void) {
 
 /* decide whether to upgrade or install the given pkg */
 int installonly(Header hdr) {
-    rpmtd provides = NULL;
-    const gchar **p = NULL;
-    const gchar *prov = NULL;
-    int rc = 0;
-
-    /* NOTE: this gross-ass list is from yum's "installonlypkgs" config item */
-    const gchar *installonly_items[] = {
-        "kernel", "kernel-PAE", "kernel-smp", "kernel-debug", "kernel-devel",
-        "kernel-bigmem", "kernel-enterprise", "kernel-unsupported",
-        "kernel-source", "kernel-PAE-debug",
-        "installonlypkg(kernel-module)", "installonlypkg(vm)",
-        NULL
-    };
-
-    /* get the package's Provides: data */
-    provides = rpmtdNew();
-    if (!headerGet(hdr, RPMTAG_PROVIDES, provides, HEADERGET_MINMEM))
-        goto out;
-
-    /* check to see if any of the Provides: match any installonly items */
-    while ((prov = rpmtdNextString(provides))) {
-        for (p = installonly_items; *p; p++) {
-            if (strcmp(*p, prov) == 0) {
-                g_debug("%s is installonly (prov: %s)",
-                        headerGetString(hdr, RPMTAG_NAME), prov);
-                rc = 1;
-                goto out;
-            }
-        }
-    }
-
-out:
-    rpmtdFreeData(provides);
-    rpmtdFree(provides);
-    return rc;
+    /* installonly pkgs are more bane than boon between RHEL versions,
+     * so always upgrade
+     */
+    return 0;
 }
 
 /* Add the given file to the given RPM transaction */
