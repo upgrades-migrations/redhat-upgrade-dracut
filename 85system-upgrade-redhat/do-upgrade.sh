@@ -27,7 +27,10 @@ do_upgrade() {
     $UPGRADEBIN --root=/sysroot $args
     rv=$?
 
-    # install new product id certificates (override existing)
+    # backup old product id certificates
+    chroot $NEWROOT /bin/sh -c 'mkdir /etc/pki/product_old; mv -f /etc/pki/product/*.pem /etc/pki/product_old/'
+
+    # install new product id certificates
     chroot $NEWROOT /bin/sh -c 'mv -f /system-upgrade/*.pem /etc/pki/product/'
 
     # restore things twiddled by workarounds above. TODO: remove!
