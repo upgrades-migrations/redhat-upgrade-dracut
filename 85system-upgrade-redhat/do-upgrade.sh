@@ -23,6 +23,8 @@ do_upgrade() {
     # https://bugzilla.redhat.com/show_bug.cgi?id=844167
     # others to be filed (mysterious initramfs without kernel modules, etc.)
 
+    rm -f /sysroot/var/lib/rpm/__db*
+
     # and off we go...
     $UPGRADEBIN --root=/sysroot $args
     rv=$?
